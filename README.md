@@ -1,1 +1,15 @@
 # Shop App
+
+![Screenshot_1725745445](https://github.com/user-attachments/assets/3bb784dd-f014-42ff-b08e-8d2cf5a1dc07)
+![Screenshot_1726341091](https://github.com/user-attachments/assets/81f5dff1-69af-4b85-8225-3473d078a52e)
+![Screenshot_1727199304](https://github.com/user-attachments/assets/ee797a14-0374-42c3-a23e-1038fbcab5a7)
+![Screenshot_1723904184](https://github.com/user-attachments/assets/cbbc0730-00c0-4954-b3fc-ceb7a10ed3ce)
+![Screenshot_1723904228](https://github.com/user-attachments/assets/bd7a6dea-5119-4f0a-8f5c-a11d0e7e67f3)
+![Screenshot_1723904278](https://github.com/user-attachments/assets/cd37669f-a457-45e1-ab74-8a0e8c3cbaa0)
+![Screenshot_1723904359](https://github.com/user-attachments/assets/cc645ba9-4664-4742-8dc3-7a12c4d2e151)
+![Screenshot_1723904364](https://github.com/user-attachments/assets/a47d5257-45dd-4a18-a194-1025dc838204)
+![Screenshot_1724001845](https://github.com/user-attachments/assets/0ff21a49-995f-42e2-8ba5-3ead4396ac84)
+![Screenshot_1724002387](https://github.com/user-attachments/assets/660645b0-1b56-4437-be51-96580dc09ec3)
+![Screenshot_1724002396](https://github.com/user-attachments/assets/704a5511-880f-4851-9ba3-6fb0f45b97b2)
+![Screenshot_1724018601](https://github.com/user-attachments/assets/55400531-8a9c-404c-a767-6a1e268b96a6)
+![Screenshot_1723904682](https://github.com/user-attachments/assets/e4fc488a-3ba4-4599-8c2e-bb15629757b1)
