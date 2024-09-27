@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.Components.Frames.RatingFragment"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:models="clr-namespace:SmartShop.Models" x:DataType="models:Product"
+             Orientation="Horizontal" Spacing="5" 
+             IsVisible="{Binding RatingCount}">
+    <StackLayout.Resources>
+        <x:Int32 x:Key="Zero">0</x:Int32>
+    </StackLayout.Resources>
+    <Label
+          FontSize="Small"
+          Text="{Binding RatingStars}" />
+    <Label
+         Style="{StaticResource Body}"
+         TextColor="DarkGray"
+         VerticalTextAlignment="Center"
+         Text="{Binding RatingCount}" />
+</StackLayout>

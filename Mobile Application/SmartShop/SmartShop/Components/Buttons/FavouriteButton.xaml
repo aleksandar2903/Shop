@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ImageButton xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="SmartShop.Components.Buttons.FavouriteButton" 
+             Source="heart.png" VerticalOptions="Start" WidthRequest="30" 
+             Padding="7" HeightRequest="30" CornerRadius="30" HorizontalOptions="End" 
+             Aspect="AspectFit" BackgroundColor="White">
+    <ImageButton.Triggers>
+        <DataTrigger TargetType="ImageButton" Binding="{Binding Favourite}" Value="True">
+            <Setter Property="Source" Value="red_heart.png"></Setter>
+        </DataTrigger>
+    </ImageButton.Triggers>
+</ImageButton>

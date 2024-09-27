@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:SmartShop" xmlns:viewmodels="clr-namespace:SmartShop.ViewModels"
+             x:Class="SmartShop.Views.PaymentPage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="viewmodels:CheckoutViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="LightRadioButtonColor">#F3F2F1</Color>
+            <Color x:Key="DarkRadioButtonColor">#9B9A99</Color>
+
+            <ControlTemplate x:Key="ThemeRadioTemplate">
+                <Frame
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    BorderColor="{AppThemeBinding Dark={StaticResource DarkRadioButtonColor},
+                                                  Light={StaticResource LightRadioButtonColor}}"
+                    HasShadow="False"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start">
+                    <Grid Margin="15">
+                        <Grid
+                            HorizontalOptions="End"
+                            VerticalOptions="Start">
+                            <Ellipse
+                                Fill="White"
+                                HeightRequest="18"
+                                HorizontalOptions="Center"
+                                Stroke="#2E2545"
+                                StrokeThickness="1"
+                                VerticalOptions="Center"
+                                WidthRequest="18" />
+                            <Ellipse
+                                x:Name="Check"
+                                BackgroundColor="Transparent"
+                                Fill="{StaticResource Primary}"
+                                HeightRequest="10"
+                                HorizontalOptions="Center"
+                                Stroke="{StaticResource Primary}"
+                                StrokeThickness="0"
+                                VerticalOptions="Center"
+                                WidthRequest="10" />
+                        </Grid>
+                        <!-- This enables us to put in dynamic content -->
+                        <ContentPresenter />
+                    </Grid>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CheckedStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BorderColor" Value="{StaticResource Primary}" />
+                                        <Setter TargetName="Check" Property="Opacity" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BorderColor" Value="#F3F2F1" />
+                                        <Setter TargetName="Check" Property="Opacity" Value="0" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Frame>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <local:AppFrame SearchLogoIsVisible="False" BackwardButtonIsVisible="True" UserLogoIsVisible="False" Title="Plaćanje">
+        <local:AppFrame.Content>
+            <Grid RowDefinitions="*, Auto" VerticalOptions="FillAndExpand">
+                <ScrollView>
+                    <StackLayout Spacing="15" Padding="15, 0">
+                        <Frame HasShadow="True" CornerRadius="15" Margin="0,0,0,15" IsClippedToBounds="True" Padding="0">
+                            <StackLayout>
+                                <StackLayout Margin="15, 10">
+                                    <Label FontAttributes="Bold" FontSize="Small" Text="Odaberite način plaćanja" ></Label>
+                                </StackLayout>
+                                <BoxView HeightRequest="1" BackgroundColor="LightGray" Opacity="0.2"></BoxView>
+                                <StackLayout Spacing="10" Margin="15, 5, 15, 15">
+                                    <RadioButton ControlTemplate="{StaticResource ThemeRadioTemplate}" IsChecked="{Binding CashChecked}">
+                                        <RadioButton.Content>
+                                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                                <Label FontAttributes="Bold" FontSize="Small" Text="Plaćanje prilikom preuzimanja" />
+                                                <Label FontSize="Micro" Text="Porudžbine možete platiti u gotovini (kuriru ili u prodavnici) ili karticom u prodavnici." TextColor="Gray" />
+                                            </StackLayout>
+                                        </RadioButton.Content>
+                                    </RadioButton>
+                                    <RadioButton ControlTemplate="{StaticResource ThemeRadioTemplate}" IsChecked="{Binding CartChecked}">
+                                        <RadioButton.Content>
+                                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                                <Label FontAttributes="Bold" FontSize="Small" Text="Plaćanje platnom karticom" />
+                                                <Label FontSize="Micro" Text="Kompletan proces plaćanja karticom se odvija kroz online servis banke. Sigurnost podataka je garantovana." TextColor="Gray" />
+                                            </StackLayout>
+                                        </RadioButton.Content>
+                                    </RadioButton>
+                                    <RadioButton ControlTemplate="{StaticResource ThemeRadioTemplate}" IsChecked="{Binding BankChecked}">
+                                        <RadioButton.Content>
+                                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                                <Label FontAttributes="Bold" FontSize="Small" Text="Uplata na tekući račun" />
+                                                <Label FontSize="Micro" Text="Nakon procesa naručivanja, na vaš e-mail će stići uplatnica sa unapred unetim podacima za uplatu." TextColor="Gray" />
+                                            </StackLayout>
+                                        </RadioButton.Content>
+                                    </RadioButton>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </ScrollView>
+                <Grid Padding="15, 10" Grid.Row="1" RowDefinitions="Auto, Auto" RowSpacing="10">
+                    <Button Text="Nastavite" Command="{Binding SavePaymentInformationsCommand}" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="End"></Button>
+                </Grid>
+            </Grid>
+        </local:AppFrame.Content>
+    </local:AppFrame>
+</ContentPage>

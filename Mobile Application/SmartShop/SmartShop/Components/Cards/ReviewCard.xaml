@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.Components.Cards.ReviewCard" WidthRequest="250" HeightRequest="150">
+    <Frame Padding="10" CornerRadius="10" BorderColor="LightGray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout Spacing="5">
+            <Grid ColumnDefinitions="50*, 50*">
+                <Label Text="{Binding RatingStars}" Style="{StaticResource Body}"></Label>
+                <Label Grid.Column="1" HorizontalTextAlignment="End" Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" Style="{StaticResource Body}"></Label>
+            </Grid>
+            <Label Text="{Binding Title}" FontSize="14" MaxLines="1" TextColor="Black" LineBreakMode="TailTruncation"></Label>
+            <Label Text="{Binding Text}" Style="{StaticResource Body}" MaxLines="4" LineBreakMode="TailTruncation"></Label>
+            <Label Text="{Binding Author}" MaxLines="1" Style="{StaticResource Body}"></Label>
+        </StackLayout>
+    </Frame>
+</StackLayout>

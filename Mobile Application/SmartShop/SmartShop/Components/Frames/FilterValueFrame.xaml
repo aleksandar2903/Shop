@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.Components.Frames.FilterValueFrame"
+             x:Name="local"
+             xmlns:viewmodels="clr-namespace:SmartShop.ViewModels">
+    <Grid ColumnSpacing="10" RowDefinitions="25">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="70*"></ColumnDefinition>
+            <ColumnDefinition Width="20*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="checkBox"  Source="checkbox_uncheck.png" VerticalOptions="Center" WidthRequest="20" HeightRequest="20">
+            <Image.Triggers>
+                <DataTrigger TargetType="Image" Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="Source" Value="checkbox.svg"></Setter>
+                </DataTrigger>
+            </Image.Triggers>
+        </Image>
+        <Label x:Name="name" Grid.Column="1" TextColor="Black" Text="{Binding Name}" VerticalOptions="Center">
+            <Label.Triggers>
+                <DataTrigger TargetType="Label" Binding="{Binding IsActive}" Value="True">
+                    <Setter Property="FontAttributes" Value="Bold"></Setter>
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+        <Label Grid.Column="2" TextColor="DarkGray" Text="{Binding ProductsCount}" HorizontalOptions="End" VerticalOptions="Center"></Label>
+    </Grid>
+</StackLayout>

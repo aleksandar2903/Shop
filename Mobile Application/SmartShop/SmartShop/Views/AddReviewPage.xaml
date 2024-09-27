@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:smartshop="clr-namespace:SmartShop"
+             x:Class="SmartShop.Views.AddReviewPage" Shell.NavBarIsVisible="False" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:viewmodels="clr-namespace:SmartShop.ViewModels" xmlns:models="clr-namespace:SmartShop.Models" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
+             x:DataType="viewmodels:ReviewsViewModel">
+    <ContentPage.Content>
+        <StackLayout Padding="15, 5, 15, 15" Spacing="20">
+            <Grid ColumnDefinitions="*" Margin="-10, 0, -10, 30">
+                <Label Text="Napišite recenziju" TextColor="Black" FontSize="Medium" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold"></Label>
+                <buttons:BackwardButton></buttons:BackwardButton>
+            </Grid>
+            <StackLayout HorizontalOptions="Center">
+                <Label HorizontalOptions="Center" Text="Odaberi ocenu (obavezno)" FontSize="Caption" TextColor="Gray"></Label>
+                <StackLayout Orientation="Horizontal" BindableLayout.ItemsSource="{Binding RatingStars.Stars}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:Star">
+                            <Label Text="{Binding Text}" FontSize="Title">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=SelectRatingCommand, Source={RelativeSource AncestorType={Type viewmodels:ReviewsViewModel}}}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+            <Entry Placeholder="Naslov" BackgroundColor="{StaticResource Light}"></Entry>
+            <Entry Placeholder="Tekst" BackgroundColor="{StaticResource Light}"></Entry>
+            <Button Text="Objavite"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

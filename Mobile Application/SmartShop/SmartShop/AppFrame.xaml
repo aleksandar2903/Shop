@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+      xmlns:local="clr-namespace:SmartShop"
+      xmlns:vm="clr-namespace:SmartShop.ViewModels" xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+      x:Class="SmartShop.AppFrame"
+      x:Name="self"
+      BackgroundColor="White" Margin="{OnPlatform Android='0, 0, 0, 0', iOS='0, 50, 0, 0'}">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="60"></RowDefinition>
+        <RowDefinition Height="*"></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid
+      Padding="5" ColumnDefinitions="Auto, *, Auto">
+        <!--Top Search Bar-->
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start" Spacing="5">
+            <ImageButton HeightRequest="35" WidthRequest="35" Padding="8" CornerRadius="35"
+             Source="angle_icon_left.png" IsVisible="{Binding BackwardButtonIsVisible, Source={x:Reference self}}" BackgroundColor="White" Command="{Binding Path=BackwardCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}"/>
+            <forms:SvgCachedImage Source="shop.svg" FadeAnimationForCachedImages="False" CacheType="None" IsVisible="{Binding LogoIsVisible, Source={x:Reference self}}" HeightRequest="30" Margin="8, 0, 0, 0" VerticalOptions="Center" HorizontalOptions="Start"></forms:SvgCachedImage>
+        </StackLayout>
+        <StackLayout Grid.Column="1" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+            <ContentView IsVisible="{Binding ContentCenter, Source={x:Reference self}, Converter={xct:IsNotNullOrEmptyConverter}}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                         Content="{Binding ContentCenter, Source={x:Reference self}}"></ContentView>
+            <Label IsVisible="{Binding Title, Source={x:Reference self}}" MaxLines="1" LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Text="{Binding Title, Source={x:Reference self}}" TextColor="Black" FontSize="Medium" FontAttributes="Bold"></Label>
+        </StackLayout>
+        <StackLayout Grid.Column="2" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="End">
+            <ContentView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                         Content="{Binding ContentEnd, Source={x:Reference self}}"
+                         IsVisible="{Binding ContentEnd, Source={x:Reference self}, Converter={xct:IsNotNullOrEmptyConverter}}"></ContentView>
+            <ImageButton
+                Aspect="AspectFit"
+                HeightRequest="35"
+                Source="search1.png"
+                Padding="8"
+                WidthRequest="35"
+                BackgroundColor="White" 
+                CornerRadius="30"
+                IsVisible="{Binding SearchLogoIsVisible, Source={x:Reference self}}"
+                Command="{Binding Path=SearchTappedCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}">
+            </ImageButton>
+            <ImageButton
+                Aspect="AspectFit"
+                HeightRequest="35"
+                Source="user.png"
+                Padding="8"
+                WidthRequest="35"
+                BackgroundColor="White" CornerRadius="30"
+                IsVisible="{Binding UserLogoIsVisible, Source={x:Reference self}}"
+                Command="{Binding Path=UserTappedCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}">
+            </ImageButton>
+        </StackLayout>
+    </Grid>
+    <Grid Grid.Row="1" BackgroundColor="White" xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.CurrentCustomStateKey="{Binding CustomStateKey}" xct:StateLayout.AnimateStateChanges="False">
+        <xct:StateLayout.StateViews>
+            <xct:StateView StateKey="Loading" RepeatCount="1" Template="{Binding Source={x:Reference self}, Path=LoadingTemplate}" />
+            <xct:StateView StateKey="Error" RepeatCount="1" Template="{StaticResource error}" />
+            <xct:StateView StateKey="Empty" RepeatCount="1" Template="{Binding Source={x:Reference self}, Path=EmptyTemplate}" />
+            <xct:StateView StateKey="Custom" CustomStateKey="{x:Static local:StateKeys.Offline}" RepeatCount="1" Template="{StaticResource offline}" />
+            <xct:StateView StateKey="Custom" CustomStateKey="{x:Static local:StateKeys.EmptyQuery}" RepeatCount="1" Template="{StaticResource emptySearchEntry}" />
+        </xct:StateLayout.StateViews>
+        <ContentView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Content="{Binding Content, Source={x:Reference self}}">
+        </ContentView>
+    </Grid>
+</Grid>

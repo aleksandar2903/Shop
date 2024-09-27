@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.Views.ExplorePage"
+             xmlns:local="clr-namespace:SmartShop"
+             xmlns:vm="clr-namespace:SmartShop.ViewModels"
+             xmlns:m="clr-namespace:SmartShop.Models" 
+             xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" 
+             xmlns:cc="clr-namespace:SmartShop.Components.Frames" 
+             xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:DataType="vm:BrowseViewModel"
+             Shell.NavBarIsVisible="False">
+    <local:AppFrame UserLogoIsVisible="False" SearchLogoIsVisible="False" BackwardButtonIsVisible="True">
+        <local:AppFrame.ContentCenter>
+            <ContentView x:Name="SearchContent">
+                <local:CustomEntry Grid.Column="1" x:Name="searchEntry" FontSize="14" ReturnType="Search" 
+                    ReturnCommandParameter="{Binding Source={Reference searchEntry}, Path=Text}" 
+                    ReturnCommand="{Binding SearchProductsCommand}"  
+                    ClearButtonVisibility="WhileEditing" TextColor="Black" 
+                    PlaceholderColor="DarkGray" HorizontalOptions="FillAndExpand" 
+                    Placeholder="Ukucajte nekoliko slova i pretražite..." HeightRequest="40">
+                </local:CustomEntry>
+            </ContentView>
+        </local:AppFrame.ContentCenter>
+        <local:AppFrame.ContentEnd>
+            <ContentView>
+                <ImageButton IsVisible="{OnIdiom Desktop=False, Phone=True}" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="40" BackgroundColor="White" Source="settings_sliders.png" Command="{Binding OpenFilterPopupCommand}"/>
+            </ContentView>
+        </local:AppFrame.ContentEnd>
+        <local:AppFrame.Content>
+            <CollectionView ItemsSource="{Binding Products}" RemainingItemsThreshold="4" RemainingItemsThresholdReachedCommand="{Binding LoadMoreDataCommand}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Product">
+                        <cc:ProductFrame ToggleFavouriteProductCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:BrowseViewModel}}, Path=ToggleFavouriteProductCommand}">
+                        </cc:ProductFrame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <Grid Padding="20">
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="40"></ActivityIndicator>
+                    </Grid>
+                </CollectionView.Footer>
+            </CollectionView>
+        </local:AppFrame.Content>
+    </local:AppFrame>
+</ContentPage>

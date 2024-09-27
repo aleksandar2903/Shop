@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Frame 
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="SmartShop.Components.Frames.SmallImageFrame"
+        BackgroundColor="#ededed"
+        BorderColor="Black"
+        Margin="1,5,10,5"
+        Padding="3"
+        CornerRadius="10"
+        HasShadow="True"
+        IsClippedToBounds="True">
+
+    <Frame
+           BackgroundColor="#ededed"
+           Padding="2"
+           CornerRadius="10"
+           HeightRequest="60"
+           HasShadow="False"
+           IsClippedToBounds="True"
+           WidthRequest="60">
+        <Image
+           Aspect="AspectFit"
+           Source="{Binding Uri}" />
+    </Frame>
+</Frame>

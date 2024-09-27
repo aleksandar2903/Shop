@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.Views.ItemDetailPage"
+             xmlns:vm="clr-namespace:SmartShop.ViewModels"
+             xmlns:m="clr-namespace:SmartShop.Models"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:local="clr-namespace:SmartShop" 
+             xmlns:frames="clr-namespace:SmartShop.Components.Frames"
+             xmlns:cards="clr-namespace:SmartShop.Components.Cards" xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:DataType="vm:ItemDetailViewModel">
+    <ContentPage.Resources>
+        <x:Int32 x:Key="Zero">0</x:Int32>
+    </ContentPage.Resources>
+    <Grid xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="False" BackgroundColor="White">
+        <xct:StateLayout.StateViews>
+            <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource product_details_loading}" />
+            <xct:StateView StateKey="Error" RepeatCount="1" Template="{StaticResource error}" />
+            <xct:StateView StateKey="Empty" RepeatCount="1" Template="{StaticResource empty}" />
+            <xct:StateView StateKey="Custom" CustomStateKey="{x:Static local:StateKeys.Offline}" RepeatCount="1" Template="{StaticResource offline}" />
+        </xct:StateLayout.StateViews>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ScrollView>
+            <StackLayout HorizontalOptions="FillAndExpand" Padding="15, 10" Spacing="15">
+                <Grid BackgroundColor="White" RowDefinitions="350">
+                    <CarouselView ItemsSource="{Binding Product.Images}" IndicatorView="IndicatorView" HeightRequest="300" VerticalOptions="Center" HorizontalOptions="Center">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate x:DataType="m:Image">
+                                <ff:CachedImage
+                                    RetryCount="100"
+                                    RetryDelay="500"
+                                    CacheDuration="7"
+                                    FadeAnimationEnabled="True"
+                                    Source="{Binding Uri}" 
+                                    Aspect="AspectFit">
+                                </ff:CachedImage>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <IndicatorView x:Name="IndicatorView" VerticalOptions="End" HorizontalOptions="Center" IndicatorColor="Gray" SelectedIndicatorColor="Black"></IndicatorView>
+                    <ImageButton WidthRequest="35" HeightRequest="35" Padding="8" CornerRadius="35" HorizontalOptions="Start" BackgroundColor="White" Aspect="AspectFit" VerticalOptions="Start" Source="angle_icon_down.png"  Command="{Binding BackwardCommand}"></ImageButton>
+                    <ImageButton Source="heart.png" VerticalOptions="Start" WidthRequest="35" 
+                        Padding="8" HeightRequest="35" CornerRadius="35" HorizontalOptions="End" 
+                        Aspect="AspectFit" BackgroundColor="White" Command="{Binding ToggleFavouriteProductCommand}" CommandParameter="{Binding Product}">
+                        <ImageButton.Triggers>
+                            <DataTrigger TargetType="ImageButton" Binding="{Binding Product.Favourite}" Value="True">
+                                <Setter Property="Source" Value="red_heart.png"></Setter>
+                            </DataTrigger>
+                        </ImageButton.Triggers>
+                    </ImageButton>
+                </Grid>
+
+                <StackLayout>
+                    <StackLayout>
+                        <Label Text="{Binding Product.Brand.Name}" FontAttributes="Bold" Margin="0, 0, 0, 5" TextColor="{StaticResource Primary}" FontSize="13"></Label>
+                    </StackLayout>
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10" HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding Product.Name}" TextColor="Black" FontAttributes="Bold" FontSize="18" HorizontalOptions="FillAndExpand"></Label>
+                        <Label Text="Na stanju" Grid.Column="1" TextColor="Green" FontAttributes="Bold" FontSize="12" HorizontalTextAlignment="End">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding Product.Quantity, Converter={xct:IntToBoolConverter}}" Value="False">
+                                    <Setter Property="Text" Value="Nema na stanju"></Setter>
+                                    <Setter Property="TextColor" Value="Red"></Setter>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </Grid>
+                    <StackLayout
+                        Orientation="Horizontal" Spacing="5" 
+                        IsVisible="{Binding Product.RatingCount}">
+                        <Label
+                            FontSize="Small"
+                            Text="{Binding Product.RatingStars}" />
+                        <Label
+                            Style="{StaticResource Body}"
+                            TextColor="DarkGray"
+                            VerticalTextAlignment="Center"
+                            Text="{Binding Product.Rating}" />
+                        <Label
+                            Style="{StaticResource Body}"
+                            TextColor="DarkGray"
+                            VerticalTextAlignment="Center"
+                            Text="{Binding Product.RatingCount, StringFormat='({0})'}" />
+                    </StackLayout>
+                    <Label Text="{Binding Product.Description}" TextColor="DarkGray" FontSize="12"></Label>
+                </StackLayout>
+
+                <StackLayout>
+                    <xct:Expander>
+                        <xct:Expander.Header>
+                            <Grid>
+                                <Label Text="Specifikacije proizvoda" Style="{StaticResource Header}"></Label>
+                                <Image Source="expand.png"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Center" WidthRequest="25">
+                                    <Image.Triggers>
+                                        <DataTrigger TargetType="Image"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}"
+                                             Value="True">
+                                            <Setter Property="Source"
+                                             Value="collapse.png" />
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                            </Grid>
+                        </xct:Expander.Header>
+                        <xct:Expander.ContentTemplate>
+                            <DataTemplate>
+                                <StackLayout Margin="0, 10">
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Product.SpecificationAttributes}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="m:AttributeValue">
+                                                <StackLayout>
+                                                    <Label Grid.Column="0" Text="{Binding SpecificationAttribute.Name}" FontSize="Small" TextColor="Black" FontAttributes="Bold"></Label>
+                                                    <Label Grid.Column="1" Text="{Binding Value}" FontSize="Small" TextColor="Black" Opacity="0.7"></Label>
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </StackLayout>
+                            </DataTemplate>
+                        </xct:Expander.ContentTemplate>
+                    </xct:Expander>
+                </StackLayout>
+
+                <frames:SimilarProductFrame IsVisible="{Binding Product.SimilarProduct, Converter={xct:IsNotNullOrEmptyConverter}}" 
+                                               BindingContext="{Binding Product.SimilarProduct}"></frames:SimilarProductFrame>
+                <!--  Reviews  -->
+                <Label
+                      FontAttributes="Bold"
+                      FontSize="16"
+                      Text="Recenzije korisnika"
+                      TextColor="Black">
+                </Label>
+
+                <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
+                    <Label Grid.RowSpan="2" Style="{StaticResource Body}" VerticalOptions="Center" Text="Budi prvi koji će napisati recenziju" IsVisible="{Binding Product.RatingCount, Converter={xct:EqualConverter}, ConverterParameter={StaticResource Zero}}"></Label>
+                    <Label IsVisible="{Binding Product.RatingCount}" HorizontalOptions="Center" Grid.Column="0" Grid.Row="0"  Text="{Binding Product.Rating}"  Style="{StaticResource Header}"></Label>
+                    <StackLayout
+                        Grid.Row="1" Grid.Column="0"
+                        Orientation="Horizontal" Spacing="5" 
+                        IsVisible="{Binding Product.RatingCount}">
+                        <Label
+                            FontSize="Small"
+                            Text="{Binding Product.RatingStars}" />
+                        <Label
+                            Style="{StaticResource Body}"
+                            TextColor="DarkGray"
+                            VerticalTextAlignment="Center"
+                            Text="{Binding Product.RatingCount}" />
+                    </StackLayout>
+                    <Button Text="Napiši recenziju" VerticalOptions="Center" FontAttributes="Bold" TextTransform="None" HeightRequest="35" FontSize="12" CornerRadius="15" HorizontalOptions="End" Grid.RowSpan="2" Grid.Column="1"></Button>
+                </Grid>
+
+                <Label
+                      IsVisible="{Binding Product.RatingCount}"
+                      FontAttributes="Bold"
+                      FontSize="14"
+                      Text="Poslednje objavljeno"
+                      TextColor="Black">
+                </Label>
+
+                <StackLayout HeightRequest="{OnIdiom Desktop=100, Phone=150}" IsVisible="{Binding Product.RatingCount}">
+                    <CollectionView ItemsSource="{Binding Product.Reviews}" HorizontalOptions="FillAndExpand">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"></LinearItemsLayout>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="m:Review">
+                                <cards:ReviewCard></cards:ReviewCard>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </StackLayout>
+
+                <!--  Popular Products  -->
+                <Label
+                      FontAttributes="Bold"
+                      FontSize="16"
+                      Text="U trendu"
+                      TextColor="Black">
+                </Label>
+
+                <StackLayout HeightRequest="{OnIdiom Desktop=300, Phone=220}">
+                    <CollectionView ItemsSource="{Binding Product.PopularProducts}" HorizontalOptions="FillAndExpand">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"></LinearItemsLayout>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="m:Product">
+                                <frames:ProductFrame>
+                                </frames:ProductFrame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </StackLayout>
+
+                <!--  Related Products  -->
+                <Label
+                      FontAttributes="Bold"
+                      FontSize="16"
+                      Text="Preporučujemo za Vas"
+                      TextColor="Black">
+                </Label>
+
+                <StackLayout HeightRequest="{OnIdiom Desktop=300, Phone=220}">
+
+                    <CollectionView ItemsSource="{Binding Product.SimilarProducts}" HorizontalOptions="FillAndExpand">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"></LinearItemsLayout>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="m:Product">
+                                <frames:ProductFrame>
+                                </frames:ProductFrame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+
+        <Frame Grid.Row="1" Padding="15, 10" BackgroundColor="White">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="15">
+                <Label VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" Text="{Binding Product.Price, StringFormat='{0:#,#0}'}" FontSize="24"></Label>
+                <Button Text="Dodaj u korpu" IsEnabled="{Binding Product.Quantity, Converter={xct:IntToBoolConverter}}" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Command="{Binding ToggleProductInCartCommand}" CommandParameter="{Binding Product}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Product.InCart}" Value="True">
+                            <Setter Property="Text" Value="Dodato u korpu"></Setter>
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

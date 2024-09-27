@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.Components.Frames.SortValueFrame"
+             x:Name="local"
+             xmlns:viewmodels="clr-namespace:SmartShop.ViewModels">
+    <Grid ColumnSpacing="10" RowDefinitions="25">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="90*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <RadioButton x:Name="radioBox"  VerticalOptions="Center" WidthRequest="20" HeightRequest="20">
+            <!--<Image.Triggers>
+                <DataTrigger TargetType="Image" Binding="{Binding Id}" Value="True">
+                    <Setter Property="Source" Value="radio_button_checked.png"></Setter>
+                </DataTrigger>
+            </Image.Triggers>-->
+        </RadioButton>
+        <Label x:Name="name" Grid.Column="1" TextColor="Black" Text="{Binding Name}" VerticalOptions="Center">
+            <!--<Label.Triggers>
+                <DataTrigger TargetType="Label" Binding="{Binding Id}" Value="True">
+                    <Setter Property="FontAttributes" Value="Bold"></Setter>
+                </DataTrigger>
+            </Label.Triggers>-->
+        </Label>
+    </Grid>
+</StackLayout>

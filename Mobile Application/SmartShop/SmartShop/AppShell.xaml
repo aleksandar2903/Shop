@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:SmartShop.Views"
+       Title="SmartShop"
+       x:Class="SmartShop.AppShell" Visual="Material">
+
+    <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+    
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="White" />
+                <Setter Property="Shell.ForegroundColor" Value="Black" />
+                <Setter Property="Shell.TitleColor" Value="Black" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="White" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="Black"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="DarkGray"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="Black"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar>
+        <ShellContent Title="Naslovna" Icon="{OnIdiom Desktop=Resources\\home.png, Phone=home.png}" Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
+        <ShellContent Title="Pretraga" Icon="{OnIdiom Desktop=Resources\\search.png, Phone=search.png}" Route="ExplorePage" ContentTemplate="{DataTemplate local:CategoriesPage}" />
+        <ShellContent Title="Korpa" Icon="{OnIdiom Desktop=Resources\\shopping_cart.png, Phone=shopping_cart.png}" Route="CartPage" ContentTemplate="{DataTemplate local:CartPage}" />
+        <ShellContent Title="Favoriti" Icon="{OnIdiom Desktop=Resources\\heart.png, Phone=heart.png}" Route="FavouritesPage" ContentTemplate="{DataTemplate local:FavouritesPage}" />
+        <ShellContent Title="Nalog" Icon="{OnIdiom Desktop=Resources\\user.png, Phone=user.png}" Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" />
+    </TabBar>
+
+    <!--
+        If you would like to navigate to this content you can do so by calling
+        await Shell.Current.GoToAsync("//LoginPage");
+    -->
+    <TabBar>
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+    </TabBar>
+
+
+</Shell>

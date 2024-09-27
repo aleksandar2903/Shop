@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:SmartShop" xmlns:viewmodels="clr-namespace:SmartShop.ViewModels"
+             x:Class="SmartShop.Views.ShippingPage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="viewmodels:CheckoutViewModel">
+    <local:AppFrame SearchLogoIsVisible="False" BackwardButtonIsVisible="True" UserLogoIsVisible="False" Title="Informacije o dostavi i plaćanju">
+        <local:AppFrame.Content>
+            <Grid RowDefinitions="*, Auto" Padding="15, 0" VerticalOptions="FillAndExpand">
+                <StackLayout Spacing="15">
+                    <Frame HasShadow="False" CornerRadius="15" Margin="0,0,0,15" IsClippedToBounds="True" Padding="0" BackgroundColor="#1A0E84E5">
+                        <StackLayout Orientation="Horizontal" Spacing="15">
+                            <BoxView HeightRequest="60" WidthRequest="5" BackgroundColor="{StaticResource Primary}"></BoxView>
+                            <Label VerticalTextAlignment="Center" Text="Za Vašu porudžbinu potrebno je da unesete adresu za isporuku." TextColor="Gray"></Label>
+                        </StackLayout>
+                    </Frame>
+                    <Entry Placeholder="Ime *" ReturnType="Next" Text="{Binding FirstName}"></Entry>
+                    <Entry Placeholder="Prezime *" ReturnType="Next" Text="{Binding LastName}"></Entry>
+                    <Entry Placeholder="Telefon *" ReturnType="Next" Text="{Binding Phone}"></Entry>
+                    <Label Text="Unesite broj telefona u formatu +381xxxxxxxxx" Style="{StaticResource Info}"></Label>
+                    <Entry Placeholder="Adresa dostave *" ReturnType="Next" Text="{Binding Address}"></Entry>
+                    <Grid ColumnSpacing="15">
+                        <StackLayout Grid.Column="0">
+                            <Entry Placeholder="Poštanski broj *" Keyboard="Numeric" ReturnType="Next" Text="{Binding ZipCode}"></Entry>
+                        </StackLayout>
+                        <Entry Grid.Column="1" Placeholder="Grad *" ReturnType="Go" ReturnCommand="{Binding SaveShippingInformationsCommand}" Text="{Binding City}"></Entry>
+                    </Grid>
+                    <Label Text="Polja oznacena simbolom * su obavezna" Style="{StaticResource Info}"></Label>
+                </StackLayout>
+                <Grid Padding="0, 10" Grid.Row="1" RowDefinitions="Auto, Auto" RowSpacing="10">
+                    <Button Text="Nastavite" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Command="{Binding SaveShippingInformationsCommand}"></Button>
+                </Grid>
+            </Grid>
+        </local:AppFrame.Content>
+    </local:AppFrame>
+</ContentPage>

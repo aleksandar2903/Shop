@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core" xmlns:templates="clr-namespace:SmartShop.Templates"
+             x:Class="SmartShop.App"
+             windows:Application.ImageDirectory="Resources"
+             xmlns:controls="clr-namespace:SmartShop.Controls"
+             xmlns:local="clr-namespace:SmartShop">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <templates:DataTemplates />
+            </ResourceDictionary.MergedDictionaries>
+            <!--<Color x:Key="Primary">#0d6efd</Color>-->
+            <Color x:Key="Primary">#0E84E5</Color>
+            <Color x:Key="Light">#fafafa</Color>
+            <Style TargetType="Label" x:Key="Header">
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
+                <Setter Property="TextColor" Value="Black"></Setter>
+            </Style>
+            <Style TargetType="Label" x:Key="Info">
+                <Setter Property="FontSize" Value="Micro"></Setter>
+                <Setter Property="TextColor" Value="Gray"></Setter>
+            </Style>
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="White"></Setter>
+            </Style>
+            <Style TargetType="controls:SkeletonView">
+                <Setter Property="BackgroundColor" Value="#E8E8E8"></Setter>
+            </Style>
+            <Style TargetType="Label" x:Key="Body">
+                <Setter Property="FontAttributes" Value="None"></Setter>
+                <Setter Property="FontSize" Value="12"></Setter>
+                <Setter Property="TextColor" Value="Black"></Setter>
+            </Style>
+            <Style TargetType="local:CustomEntry" >
+                <Setter Property="Margin" Value="5,0,0,0"></Setter>
+            </Style>
+            <Style TargetType="Frame" x:Key="customEntry">
+                <Setter Property="BackgroundColor" Value="White"></Setter>
+                <Setter Property="BorderColor" Value="{StaticResource Light}"></Setter>
+                <Setter Property="Padding" Value="0"></Setter>
+                <Setter Property="CornerRadius" Value="10"></Setter>
+                <Setter Property="HeightRequest" Value="45"></Setter>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black"></Setter>
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="White"></Setter>
+                <Setter Property="FontSize" Value="Small"></Setter>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="HeightRequest" Value="45"></Setter>
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+                <Setter Property="CornerRadius">
+                    <OnPlatform x:TypeArguments="x:Int32">
+                        <On Platform="iOS" Value="10"/>
+                        <On Platform="Android, UWP" Value="45"></On>
+                    </OnPlatform>
+                </Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

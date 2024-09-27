@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="SmartShop.Components.Frames.ProductFrame"
+      x:Name="self"
+      xmlns:vm="clr-namespace:SmartShop.ViewModels"
+      xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
+             Padding="10, 0" WidthRequest="130">
+    <StackLayout.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}, Path=ProductTappedCommand}" CommandParameter="{Binding .}" />
+    </StackLayout.GestureRecognizers>
+    <Grid Padding="10">
+            <Grid.RowDefinitions>
+            <RowDefinition Height="{Binding Source={x:Reference self}, Path=WidthRequest}"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{Binding Source={x:Reference self}, Path=WidthRequest}"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ff:CachedImage
+                    Margin="10"
+                    RetryCount="100"
+                    RetryDelay="500"
+                    CacheDuration="7"
+                    FadeAnimationEnabled="True"
+                    Aspect="AspectFit"
+                    Source="{Binding Image.Uri}" />
+        <buttons:FavouriteButton
+                         Command="{Binding ToggleFavouriteProductCommand, Source={x:Reference self}}"
+                         CommandParameter="{Binding .}">
+        </buttons:FavouriteButton>
+        </Grid>
+    <StackLayout HorizontalOptions="FillAndExpand">
+        <Label
+                  FontSize="12"
+                  Text="{Binding Name}"
+                  LineBreakMode="TailTruncation"
+                  MaxLines="2"
+                  TextColor="Black">
+        </Label>
+        <Label
+                  FontSize="14"
+                  Text="{Binding Price, StringFormat='{0:#,#0}'}"
+                  TextColor="Black"
+                  FontAttributes="Bold">
+        </Label>
+        <StackLayout
+                Orientation="Horizontal" Spacing="5" 
+                IsVisible="{Binding RatingCount}">
+            <Label
+                    FontSize="Small"
+                    Text="{Binding RatingStars}" />
+            <Label
+                    Style="{StaticResource Body}"
+                    TextColor="DarkGray"
+                    VerticalTextAlignment="Center"
+                    Text="{Binding RatingCount}" />
+        </StackLayout>
+    </StackLayout>
+</StackLayout>

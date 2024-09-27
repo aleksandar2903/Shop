@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+    <StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
+             x:Class="SmartShop.Components.Frames.SimilarProductFrame">
+        <Frame CornerRadius="5" Padding="15" BorderColor="LightGray" HasShadow="False" BackgroundColor="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="Pogledajte sličan proizvod" TextColor="Black" FontSize="14" FontAttributes="Bold" Grid.ColumnSpan="2" Margin="0,0,0,10"></Label>
+                <Frame
+                                                        Grid.Row="1"
+                                                        BackgroundColor="White"
+                                                        Padding="10"
+                                                        CornerRadius="10"
+                                                        HasShadow="False"
+                                                        HeightRequest="60"
+                                                        IsClippedToBounds="False">
+                    <Grid>
+                        <Image
+                                                            Aspect="AspectFit"
+                                                            Source="{Binding Image.Uri}" />
+
+                    </Grid>
+                </Frame>
+                <StackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Label
+                                                        FontSize="12"
+                                                        Text="{Binding Name}"
+                                                        LineBreakMode="TailTruncation"
+                                                        MaxLines="1"
+                                                        TextColor="Black">
+                    </Label>
+                    <Label
+                                                        FontSize="14"
+                                                        Text="{Binding Price, StringFormat='{0:#,#0}'}"
+                                                        TextColor="Black"
+                                                        FontAttributes="Bold">
+                    </Label>
+                    <buttons:FavouriteButton BindingContext="{Binding .}" Margin="0" WidthRequest="25" HeightRequest="25" HorizontalOptions="Start">
+                    </buttons:FavouriteButton>
+                </StackLayout>
+            </Grid>
+        </Frame>
+    </StackLayout>

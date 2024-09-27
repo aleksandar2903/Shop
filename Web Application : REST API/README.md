@@ -1,0 +1,15 @@
+Inventory Managment System
+![2](https://user-images.githubusercontent.com/92222987/137587256-24efc7de-28c2-41f9-a6e9-fe49c4f3b584.png)
+![3](https://user-images.githubusercontent.com/92222987/137587259-0150d3b8-7330-40aa-89fa-7eba49e3b3f0.png)
+![4](https://user-images.githubusercontent.com/92222987/137587260-d515bc11-0b96-4c0e-a031-5027ce54359e.png)
+![127 0 0 1_8000_products_3_edit(Max) (1)](https://user-images.githubusercontent.com/92222987/180333721-425b56d7-2406-4f04-8bcc-9be73d670072.png)
+![127 0 0 1_8000_products_3(Max)](https://user-images.githubusercontent.com/92222987/180333729-25774cb7-a7a9-4f30-8d39-ba9c38bf0bed.png)
+![127 0 0 1_8000_(Max)](https://user-images.githubusercontent.com/92222987/180333731-c43db095-0086-418a-8d47-bca56e25fabe.png)
+![6](https://user-images.githubusercontent.com/92222987/137587264-fe68b29f-bab6-41cb-b15a-3be748fea399.png)
+![7](https://user-images.githubusercontent.com/92222987/137587265-9455c27f-d0e0-400d-8693-f8bc68eac552.png)
+![8](https://user-images.githubusercontent.com/92222987/137587268-ed78020c-2f91-471f-88aa-1ec57dd0e732.png)
+![1](https://user-images.githubusercontent.com/92222987/137587270-34f53cb8-1d1d-4a68-a51a-01d535dd9cb8.png)
+![11](https://user-images.githubusercontent.com/92222987/137587337-e37b8e6a-116d-40b6-b476-94d23aff057c.png)
+![10](https://user-images.githubusercontent.com/92222987/137587338-cc8d761e-e407-4ccc-a341-b99cabfeea55.png)
+![9](https://user-images.githubusercontent.com/92222987/137587339-fc936f5d-3b00-44ca-b1b3-4e2052cb6d5f.png)
+

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:SmartShop.ViewModels" 
+             xmlns:frames="clr-namespace:SmartShop.Components.Frames"
+             xmlns:m="clr-namespace:SmartShop.Models" xmlns:local="clr-namespace:SmartShop"
+             x:Class="SmartShop.Views.PromotionPage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="vm:PromotionViewModel">
+    <local:AppFrame BackwardButtonIsVisible="True" Title="{Binding Promotion.Title}">
+        <local:AppFrame.Content>
+            <StackLayout Spacing="15">
+                <StackLayout Padding="15, 0" Spacing="15">
+                    <Frame Padding="0" CornerRadius="5">
+                        <Image Source="{Binding Promotion.ImageUrl}" Aspect="AspectFit"></Image>
+                    </Frame>
+                    <StackLayout>
+                        <Label Text="{Binding Promotion.Title}" Style="{StaticResource Header}"></Label>
+                        <Label Text="{Binding Promotion.Description}" HorizontalTextAlignment="Start" Style="{StaticResource Body}"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <CollectionView Grid.Row="1" ItemsSource="{Binding Promotion.Products}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:Product">
+                            <frames:ProductFrame ToggleFavouriteProductCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:PromotionViewModel}}, Path=ToggleFavouriteProductCommand}">
+                            </frames:ProductFrame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </local:AppFrame.Content>
+    </local:AppFrame>
+</ContentPage>

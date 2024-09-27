@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms" 
+             x:Class="SmartShop.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             xmlns:viewmodels="clr-namespace:SmartShop.ViewModels" xmlns:smartshop="clr-namespace:SmartShop"
+             x:DataType="viewmodels:LoginViewModel">
+    <smartshop:AppFrame SearchLogoIsVisible="False" UserLogoIsVisible="False" BackwardButtonIsVisible="True" Title="Prijavite se">
+        <smartshop:AppFrame.Content>
+            <StackLayout VerticalOptions="Center" Spacing="10" Padding="15, 0">
+                <ffsvg:SvgCachedImage CacheType="None" Source="shop.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="40" VerticalOptions="Start" HorizontalOptions="Center" Margin="0,0,0,20"></ffsvg:SvgCachedImage>
+                <Entry Placeholder="E-mail adresa *" Text="{Binding Email}"></Entry>
+                <Entry Placeholder="Lozinka *" Text="{Binding Password}" IsPassword="True"></Entry>
+                <Label Text="Polja oznacena simbolom * su obavezna" TextColor="Gray" FontSize="Micro"></Label>
+                <Button Margin="0,10,0,0" Text="Prijavite se" Command="{Binding LoginCommand}"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label FontSize="12" Text="Nemate nalog?"></Label>
+                    <Label FontSize="12" Text="Registrujte se" FontAttributes="Bold" TextColor="{StaticResource Primary}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenRegisterPageCommand}"></TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+        </smartshop:AppFrame.Content>
+    </smartshop:AppFrame>
+</ContentPage>

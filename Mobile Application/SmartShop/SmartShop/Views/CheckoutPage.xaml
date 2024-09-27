@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:SmartShop" xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:SmartShop.ViewModels" xmlns:models="clr-namespace:SmartShop.Models"
+             x:Class="SmartShop.Views.CheckoutPage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="viewmodels:CheckoutViewModel">
+    <local:AppFrame SearchLogoIsVisible="False" BackwardButtonIsVisible="True" UserLogoIsVisible="False" Title="Pregled porudžbine">
+        <local:AppFrame.Content>
+            <Grid RowDefinitions="*, Auto" VerticalOptions="FillAndExpand">
+                <ScrollView>
+                    <StackLayout Spacing="15" Padding="15, 0">
+                        <Frame HasShadow="True" CornerRadius="15" Margin="0,0,0,15" IsClippedToBounds="True" Padding="0">
+                            <StackLayout>
+                                <StackLayout Margin="15, 10">
+                                    <Label FontAttributes="Bold" FontSize="Small" Text="Pregled" ></Label>
+                                    <Label Text="Proverite podatke" TextColor="Gray" FontSize="Micro"></Label>
+                                </StackLayout>
+                                <BoxView HeightRequest="1" BackgroundColor="LightGray" Opacity="0.2"></BoxView>
+                                <StackLayout Spacing="10" Margin="15, 5">
+                                    <Label FontAttributes="Bold" FontSize="Micro" Text="Podaci o dostavi" ></Label>
+                                    <Label FontSize="Micro" TextColor="Gray">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="FirstName"></Binding>
+                                                <Binding Path="LastName"></Binding>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                    <Label Text="{Binding Phone}" FontSize="Micro" TextColor="Gray"></Label>
+                                    <Label FontSize="Micro" TextColor="Gray">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0}, {1}, {2}">
+                                                <Binding Path="Address"></Binding>
+                                                <Binding Path="City"></Binding>
+                                                <Binding Path="ZipCode"></Binding>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </StackLayout>
+
+                                <StackLayout Spacing="10" Margin="15, 5">
+                                    <Label FontAttributes="Bold" FontSize="Micro" Text="Pošiljka" ></Label>
+                                    <StackLayout  BindableLayout.ItemsSource="{Binding Cart}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="models:Cart">
+                                                <Grid ColumnDefinitions="40, *" RowDefinitions="80">
+                                                    <forms:CachedImage Source="{Binding Product.Image.Uri}" Aspect="AspectFit" VerticalOptions="Center"></forms:CachedImage>
+                                                    <Grid Grid.Column="1" VerticalOptions="Center" ColumnSpacing="15" ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto">
+                                                        <Label LineBreakMode="TailTruncation" TextColor="Black" MaxLines="3" FontSize="Micro" Text="{Binding Product.Name}"></Label>
+                                                        <Label Grid.Column="1" HorizontalTextAlignment="End" Text="{Binding Amount, StringFormat='{0:#,#0}'}" FontSize="Small" FontAttributes="Bold"></Label>
+                                                        <Label Grid.Row="1" Text="{Binding Quantity, StringFormat='Količina: {0}'}" TextColor="Gray" Grid.ColumnSpan="2" FontSize="Micro"></Label>
+                                                    </Grid>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
+                        <!--<Frame HasShadow="True" CornerRadius="15" Margin="0,0,0,15" IsClippedToBounds="True" Padding="0">
+                            <StackLayout>
+                                <StackLayout Margin="15, 10">
+                                    <Label FontAttributes="Bold" FontSize="Small" Text="Plaćanje" ></Label>
+                                    <Label Text="Molimo vas unesite podatke o vašoj kreditnoj ili debitnoj kartici." TextColor="Gray" FontSize="Micro"></Label>
+                                </StackLayout>
+                                <BoxView HeightRequest="1" BackgroundColor="LightGray" Opacity="0.2"></BoxView>
+                                <StackLayout Spacing="10" Margin="15, 5, 15, 15">
+                                    <Entry Placeholder="Broj kartice *" Keyboard="Numeric" ReturnType="Next" Text="{Binding CardNumber}"></Entry>
+                                    <Grid ColumnSpacing="15">
+                                        <Entry Grid.Column="0" ReturnType="Next" Placeholder="MM/YY *" Text="{Binding ExpireDate}"></Entry>
+                                        <Entry Grid.Column="1" ReturnType="Next" Keyboard="Numeric" Placeholder="CVV2/CVC2 *" Text="{Binding Cvv}"></Entry>
+                                    </Grid>
+                                    <Entry Placeholder="Ime na kartici *" ReturnType="Done" Text="{Binding CardName}"></Entry>
+                                    <Label Text="Polja oznacena simbolom * su obavezna" TextColor="Gray" FontSize="Micro"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>-->
+                    </StackLayout>
+                </ScrollView>
+                <Grid Padding="15, 10" Grid.Row="1" RowDefinitions="Auto, Auto" RowSpacing="10">
+                    <Label FontAttributes="Bold" HorizontalTextAlignment="End" TextColor="Black" Text="{Binding TotalAmount, StringFormat='Ukupno za plaćanje {0:#,#0} RSD'}" FontSize="Small"></Label>
+                    <Button Text="Završi porudžbinu" Command="{Binding PlaceOrderCommand}" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="End"></Button>
+                </Grid>
+            </Grid>
+        </local:AppFrame.Content>
+    </local:AppFrame>
+</ContentPage>

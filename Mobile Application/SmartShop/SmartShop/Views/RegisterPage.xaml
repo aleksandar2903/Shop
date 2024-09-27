@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:smartshop="clr-namespace:SmartShop" 
+             xmlns:viewmodels="clr-namespace:SmartShop.ViewModels"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms" 
+             x:Class="SmartShop.Views.RegisterPage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="viewmodels:RegisterViewModel">
+    <smartshop:AppFrame SearchLogoIsVisible="False" BackwardButtonIsVisible="True" Title="Kreirajte nalog" UserLogoIsVisible="False">
+        <smartshop:AppFrame.Content>
+            <StackLayout VerticalOptions="Center" Spacing="10" Padding="15, 0">
+                <ffsvg:SvgCachedImage CacheType="None" Source="shop.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="40" VerticalOptions="Start" HorizontalOptions="Center" Margin="0,0,0,20"></ffsvg:SvgCachedImage>
+                <Entry Placeholder="Ime i prezime *" Text="{Binding Name}"></Entry>
+                <Entry Placeholder="E-mail adresa *" Text="{Binding Email}"></Entry>
+                <Entry Placeholder="Lozinka *" Text="{Binding Password}" IsPassword="True"></Entry>
+                <Entry Placeholder="Potvrdite lozinku *" Text="{Binding PasswordConfirmation}" IsPassword="True"></Entry>
+                <Label Text="Polja oznacena simbolom * su obavezna" TextColor="Gray" FontSize="Micro"></Label>
+                <Button Margin="0,10,0,0" Text="Registrujte se" Command="{Binding RegisterCommand}"/>
+            </StackLayout>
+        </smartshop:AppFrame.Content>
+    </smartshop:AppFrame>
+</ContentPage>

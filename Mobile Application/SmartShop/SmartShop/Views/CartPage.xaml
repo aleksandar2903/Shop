@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:m="clr-namespace:SmartShop.Models" 
+             xmlns:vm="clr-namespace:SmartShop.ViewModels"
+             xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" 
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:svgforms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:local="clr-namespace:SmartShop"
+             x:Class="SmartShop.Views.CartPage"
+             Title="Cart"
+             Shell.NavBarIsVisible="False"
+             x:DataType="vm:CartViewModel">
+    <local:AppFrame Title="Moja korpa" EmptyTemplate="{StaticResource empty_cart}">
+        <local:AppFrame.Content>
+            <Grid RowDefinitions="*, Auto" Padding="15, 0" VerticalOptions="FillAndExpand">
+                <CollectionView ItemsSource="{Binding Cart}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:Cart">
+                            <StackLayout Padding="5, 15">
+                                <Frame Padding="10, 5" CornerRadius="10">
+                                    <Grid ColumnDefinitions="70, *">
+                                        <forms:CachedImage HeightRequest="50" WidthRequest="50" Source="{Binding Product.Image.Uri}" Aspect="AspectFit"></forms:CachedImage>
+                                        <Grid Grid.Column="1" VerticalOptions="Center" ColumnSpacing="15" ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto">
+                                            <StackLayout>
+                                                <Label LineBreakMode="TailTruncation" TextColor="Black" FontAttributes="Bold" MaxLines="3" FontSize="Micro" Text="{Binding Product.Name}"></Label>
+                                                <Label FontSize="Small" TextColor="Gray" Text="{Binding Product.Price, StringFormat='{0:#,#0}'}"></Label>
+                                            </StackLayout>
+                                            <Label Grid.Column="1" HorizontalTextAlignment="End" Text="{Binding Amount, StringFormat='{0:#,#0}'}" FontSize="Body" FontAttributes="Bold"></Label>
+                                            <Label Text="Ukloni" FontSize="Micro" TextColor="Black" Padding="0, 5" TextDecorations="Underline" VerticalOptions="Center" Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Start">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=ToggleProductCommand}" CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                            <Grid ColumnDefinitions="35, 40, 35" Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="End">
+                                                <ImageButton HeightRequest="35" WidthRequest="35" CornerRadius="35" BackgroundColor="{StaticResource Light}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=DecreaseProductQuatityCommand}" CommandParameter="{Binding .}" Aspect="AspectFit" VerticalOptions="Center" Padding="10" HorizontalOptions="Center" Source="minuss.png"></ImageButton>
+                                                <local:CustomEntry Keyboard="Numeric" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Grid.Column="1" Text="{Binding Quantity}" FontSize="Body" ReturnCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=EnterProductQuatityCommand}" ReturnCommandParameter="{Binding .}"></local:CustomEntry>
+                                                <ImageButton HeightRequest="35" Grid.Column="2" WidthRequest="35" BackgroundColor="{StaticResource Light}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=IncreaseProductQuatityCommand}" CommandParameter="{Binding .}" CornerRadius="30" Aspect="AspectFit" VerticalOptions="Center" Padding="10" HorizontalOptions="Center" Source="plus.png"></ImageButton>
+                                            </Grid>
+                                        </Grid>
+                                        <!--<StackLayout VerticalOptions="Center">
+                                        <Label HorizontalOptions="Center" FontSize="Large" FontAttributes="Bold" Text="{Binding OrderQuantity, StringFormat='x{0}'}"></Label>
+                                        <Stepper Minimum="1" Maximum="{Binding Quantity}" Value="{Binding OrderQuantity}" ></Stepper>
+                                    </StackLayout>-->
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=OnProductTapped}" CommandParameter="{Binding .}" />
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Grid Padding="0, 10" Grid.Row="1" RowDefinitions="Auto, Auto" RowSpacing="10">
+                    <Label FontAttributes="Bold" HorizontalTextAlignment="End" TextColor="Black" Text="{Binding TotalAmount, StringFormat='Ukupno za plaćanje {0:#,#0} RSD'}" FontSize="Small"></Label>
+                    <Button Text="Nastavite" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Command="{Binding CheckoutCommand}"></Button>
+                </Grid>
+            </Grid>
+        </local:AppFrame.Content>
+    </local:AppFrame>
+</ContentPage>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartShop.ViewModels"
+             xmlns:m="clr-namespace:SmartShop.Models"
+             xmlns:frames="clr-namespace:SmartShop.Components.Frames" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="SmartShop.Views.FavouritesPage"
+             xmlns:local="clr-namespace:SmartShop"
+             Shell.NavBarIsVisible="False"
+             x:DataType="vm:FavouritesViewModel">
+    <local:AppFrame Title="Moji favoriti" EmptyTemplate="{StaticResource empty_favourites}">
+        <local:AppFrame.Content>
+            <CollectionView ItemsSource="{Binding FavouriteProducts}" Margin="15, 0">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Product">
+                        <frames:ProductFrame ToggleFavouriteProductCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}, Path=ToggleFavouriteProductCommand}">
+                        </frames:ProductFrame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </local:AppFrame.Content>
+    </local:AppFrame>
+</ContentPage>

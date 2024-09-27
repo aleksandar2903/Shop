@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.Views.CategoriesPage"
+            xmlns:vm="clr-namespace:SmartShop.ViewModels"
+            xmlns:m="clr-namespace:SmartShop.Models" 
+             xmlns:local="clr-namespace:SmartShop" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             x:DataType="vm:CategoriesAndBrandsViewModel"
+             Shell.NavBarIsVisible="False">
+    <local:AppFrame LogoIsVisible="True" LoadingTemplate="{StaticResource loading}">
+        <local:AppFrame.Content>
+            <ScrollView>
+                <StackLayout Spacing="10" Padding="15">
+                    <StackLayout>
+                        <Label Text="Kategorije" FontSize="16" FontAttributes="Bold" TextColor="Black"></Label>
+                    </StackLayout>
+                    <FlexLayout Direction="Row" Wrap="Wrap"  AlignItems="Stretch"  JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding Categories}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="m:Category">
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="10" FlexLayout.Basis="50%">
+                                    <Frame CornerRadius="10" HorizontalOptions="FillAndExpand" HasShadow="False" BackgroundColor="{StaticResource Light}">
+                                        <Grid HorizontalOptions="FillAndExpand" ColumnDefinitions="*, 40">
+                                            <Label VerticalOptions="End" FontSize="12" LineBreakMode="WordWrap" Margin="0, 0, 10, 0" Text="{Binding Name}" TextColor="Black"></Label>
+                                            <ff:CachedImage Grid.Column="1" Source="{Binding Img}" Aspect="AspectFit"></ff:CachedImage>
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=ForwardCommand, Source={RelativeSource AncestorType={x:Type vm:CategoriesAndBrandsViewModel}}}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                    <StackLayout>
+                        <Label Text="Brend" FontSize="16" FontAttributes="Bold" TextColor="Black"></Label>
+                    </StackLayout>
+                    <FlexLayout  Direction="Row" Wrap="Wrap"  AlignItems="Stretch"  JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding Brands}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="m:Brand">
+                                <StackLayout HorizontalOptions="FillAndExpand" FlexLayout.Basis="50%" Margin="10">
+                                    <StackLayout HorizontalOptions="Center" Padding="0">
+                                        <StackLayout xct:CornerRadiusEffect.CornerRadius="60" WidthRequest="60" HeightRequest="60" Padding="20" BackgroundColor="{StaticResource Light}" VerticalOptions="Center" HorizontalOptions="Center">
+                                            <ff:CachedImage VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Source="{Binding Img}"></ff:CachedImage>
+                                        </StackLayout>
+                                        <Label FontSize="12" HorizontalOptions="Center" Margin="0, 0, 0, 10" Text="{Binding Name}" TextColor="Black"></Label>
+                                    </StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=OnBrandSelectCommand, Source={RelativeSource AncestorType={x:Type vm:CategoriesAndBrandsViewModel}}}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </StackLayout>
+            </ScrollView>
+        </local:AppFrame.Content>
+    </local:AppFrame>
+</ContentPage>

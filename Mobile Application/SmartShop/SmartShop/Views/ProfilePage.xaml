@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:viewmodels="clr-namespace:SmartShop.ViewModels" xmlns:smartshop="clr-namespace:SmartShop" xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
+             mc:Ignorable="d"
+             x:Class="SmartShop.Views.ProfilePage"
+             x:DataType="viewmodels:ProfileViewModel"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="stlBoardTitle" TargetType="Label">
+                <Setter Property="TextColor"         Value="Gray"/>
+                <Setter Property="FontSize"          Value="Micro"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+
+            <Style x:Key="stlBoardDesc" TargetType="Label">
+                <Setter Property="FontAttributes"    Value="Bold"/>
+                <Setter Property="FontSize"          Value="16" />
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <smartshop:AppFrame SearchLogoIsVisible="False" UserLogoIsVisible="False" Title="Moj nalog" EmptyTemplate="{StaticResource empty_profile}">
+        <smartshop:AppFrame.Content>
+            <ScrollView>
+                <StackLayout Spacing="15">
+                    <!-- 2. User informaqtion frame-->
+                    <StackLayout Padding="15">
+                        <Frame CornerRadius="15" Padding="10" HasShadow="True">
+                            <Grid RowDefinitions="70" ColumnDefinitions="80, *">
+                                <extensions:AvatarView HorizontalOptions="Center" TextColor="White" VerticalOptions="Center" Size="60" Color="{StaticResource Primary}" Text="{Binding User.Initials}" Aspect="AspectFit"></extensions:AvatarView>
+                                <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding User.Name}" FontAttributes="Bold"></Label>
+                                    <Label Text="{Binding User.Email}"></Label>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <!-- 2. Orders informations-->
+                    <StackLayout Padding="15">
+                        <Frame CornerRadius="15" HasShadow="True">
+                            <!-- Blocks: 3 and 4 -->
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <!--4. Contact information: Board inforation-->
+                                <Label Grid.Row="0" Grid.Column="0" Text="Završene kupovine" Style="{StaticResource stlBoardTitle}" />
+                                <Label Grid.Row="1" Grid.Column="0" Text="{Binding User.DeliveredOrdersCount}" Style="{StaticResource stlBoardDesc}"/>
+
+                                <Label Grid.Row="0" Grid.Column="1" Text="Kupovine na čekanju" Style="{StaticResource stlBoardTitle}"/>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding User.PendingOrdersCount}" Style="{StaticResource stlBoardDesc}"/>
+
+                                <Label Grid.Row="0" Grid.Column="2" Text="Potrošen novac" Style="{StaticResource stlBoardTitle}"/>
+                                <Label Grid.Row="1" Grid.Column="2" Text="{Binding User.Client.TotalPaid, StringFormat='{0:#,#0} RSD'}" Style="{StaticResource stlBoardDesc}"/>
+                                <!--4. Contact information: Follow button-->
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Padding="15">
+                        <Frame CornerRadius="15" Padding="15, 10" HasShadow="True">
+                            <StackLayout>
+                                <Label Text="Moje porudžbine" FontAttributes="Bold"></Label>
+                                <Label Text="Ovde možete proverite sve Vaše porudžbine." TextColor="Gray" FontSize="Micro"></Label>
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PurchaseHistoryCommand}"></TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Padding="15">
+                        <Frame CornerRadius="15" Padding="15, 10" HasShadow="True">
+                            <StackLayout>
+                                <Label Text="Moji favoriti" FontAttributes="Bold"></Label>
+                                <Label Text="Ovde možete pogledati sve Vaše favorite." TextColor="Gray" FontSize="Micro"></Label>
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FavouriteCommand}"></TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </StackLayout>
+                    <Button Margin="15, 0" TextColor="Black"
+                        BackgroundColor="White" 
+                        TextTransform="None"
+                        Text="Odjavite se" 
+                        Command="{Binding LogoutCommand}" 
+                        HeightRequest="45"/>
+                </StackLayout>
+            </ScrollView>
+        </smartshop:AppFrame.Content>
+    </smartshop:AppFrame>
+</ContentPage>

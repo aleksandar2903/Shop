@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:SmartShop" xmlns:models="clr-namespace:SmartShop.Models" xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="SmartShop.Views.OrderPage"
+             Shell.NavBarIsVisible="False">
+    <local:AppFrame SearchLogoIsVisible="False" BackwardButtonIsVisible="True" UserLogoIsVisible="False" EmptyTemplate="{StaticResource empty_purchase}" Title="Istorija porudžbina">
+        <local:AppFrame.Content>
+            <CollectionView ItemsSource="{Binding Orders}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="15">
+                            <Frame HasShadow="True" CornerRadius="15" Padding="0,0,0,15" IsClippedToBounds="True">
+                                <StackLayout>
+                                    <StackLayout Margin="15, 10">
+                                        <Label FontAttributes="Bold" FontSize="Small" Text="{Binding Id, StringFormat='Porudžbina: #{0}' }" ></Label>
+                                        <Label Text="Informacije o porudžbini" TextColor="Gray" FontSize="Micro"></Label>
+                                    </StackLayout>
+                                    <BoxView HeightRequest="1" BackgroundColor="LightGray" Opacity="0.2"></BoxView>
+                                    <StackLayout Spacing="10" Margin="15, 5">
+                                        <Label FontAttributes="Bold" FontSize="Micro" Text="Podaci o dostavi" ></Label>
+                                        <Label FontSize="Micro" TextColor="Gray" Text="{Binding ShippingAddress.Name}">
+                                        </Label>
+                                        <Label Text="{Binding ShippingAddress.Phone}" FontSize="Micro" TextColor="Gray"></Label>
+                                        <Label FontSize="Micro" TextColor="Gray">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0}, {1}, {2}">
+                                                    <Binding Path="ShippingAddress.Address"></Binding>
+                                                    <Binding Path="ShippingAddress.City"></Binding>
+                                                    <Binding Path="ShippingAddress.ZipCode"></Binding>
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label FontAttributes="Bold" FontSize="Micro" Text="Status plaćanja" ></Label>
+                                        <Label Text="{Binding PaidStatus}" FontSize="Micro"></Label>
+                                        <Label FontAttributes="Bold" FontSize="Micro" Text="Status isporuke" ></Label>
+                                        <Label Text="{Binding DeliveryStatus}" FontSize="Micro"></Label>
+                                        <Label FontAttributes="Bold" FontSize="Micro" Text="Vreme poručivanja" ></Label>
+                                        <Label FontSize="Micro" Text="{Binding CreatedAt, StringFormat='{0:dd MM yyyy H:m}'}" ></Label>
+                                        <Label FontAttributes="Bold" FontSize="Small" Text="{Binding TotalAmount, StringFormat='Ukupno: {0:#,#0}'}" ></Label>
+                                    </StackLayout>
+
+                                    <StackLayout Spacing="10" Margin="15, 5">
+                                        <xct:Expander>
+                                            <xct:Expander.Header>
+                                                <Grid>
+                                                    <Label Text="Poručeni proizvodi" FontSize="Small" FontAttributes="Bold"></Label>
+                                                    <Image Source="expand.png"
+                                                            HorizontalOptions="End"
+                                                            VerticalOptions="Center" WidthRequest="20">
+                                                        <Image.Triggers>
+                                                            <DataTrigger TargetType="Image"
+                                                                Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}"
+                                                                Value="True">
+                                                                <Setter Property="Source"
+                                                                Value="collapse.png" />
+                                                            </DataTrigger>
+                                                        </Image.Triggers>
+                                                    </Image>
+                                                </Grid>
+                                            </xct:Expander.Header>
+                                            <xct:Expander.ContentTemplate>
+                                                <DataTemplate>
+                                                    <StackLayout  BindableLayout.ItemsSource="{Binding Products}">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate x:DataType="models:Cart">
+                                                                <Grid ColumnDefinitions="40, *" RowDefinitions="80">
+                                                                    <forms:CachedImage Source="{Binding Product.Image.Uri}" Aspect="AspectFit" VerticalOptions="Center"></forms:CachedImage>
+                                                                    <Grid Grid.Column="1" VerticalOptions="Center" ColumnSpacing="15" ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto">
+                                                                        <Label LineBreakMode="TailTruncation" TextColor="Black" MaxLines="3" FontSize="Micro" Text="{Binding Product.Name}"></Label>
+                                                                        <Label Grid.Column="1" HorizontalTextAlignment="End" Text="{Binding Amount, StringFormat='{0:#,#0}'}" FontSize="Small" FontAttributes="Bold"></Label>
+                                                                        <Label Grid.Row="1" Text="{Binding Qty, StringFormat='Količina: {0}'}" TextColor="Gray" Grid.ColumnSpan="2" FontSize="Micro"></Label>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </StackLayout>
+                                                </DataTemplate>
+                                            </xct:Expander.ContentTemplate>
+                                        </xct:Expander>
+                                    </StackLayout>
+
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </local:AppFrame.Content>
+    </local:AppFrame>
+</ContentPage>
